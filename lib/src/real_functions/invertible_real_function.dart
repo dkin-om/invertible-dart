@@ -18,6 +18,8 @@ abstract class InvertibleRealFunction extends InvertibleFunction<num, num> {
       _InvertibleRealFunctionImpl(irf);
 
   factory InvertibleRealFunction.parse(String source) {
+    source = source.trim();
+
     InvertibleFunction<num, num> irf = Identity<num>();
 
     IRFSymbol<dynamic> _symbol;
@@ -25,21 +27,21 @@ abstract class InvertibleRealFunction extends InvertibleFunction<num, num> {
     for (final String token in source.split(' ')) {
       final IRFSymbol<dynamic> symbol = IRFSymbol.of(token);
       if (symbol != null) {
-        if (_symbol != null) {
-          irf >>= _symbol.createFunction(_variables);
-        }
+        irf >>= _symbol?.createFunction(_variables);
 
         _symbol = symbol;
         _variables = <String>[];
       } else {
         if (_variables == null) {
-          throw ArgumentError.value(source, 'source', 'Invalid source');
+          if (source.isNotEmpty) {
+            throw ArgumentError.value(source, 'source', 'Invalid source');
+          }
+        } else {
+          _variables.add(token);
         }
-
-        _variables.add(token);
       }
     }
-    irf >>= _symbol.createFunction(_variables);
+    irf >>= _symbol?.createFunction(_variables);
 
     return InvertibleRealFunction.of(irf);
   }

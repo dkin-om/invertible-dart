@@ -24,7 +24,7 @@ abstract class InvertibleFunction<X, Y> {
   InvertibleFunction operator <<(InvertibleFunction g) => after(g);
 
   InvertibleFunction<X, Z> before<Z>(InvertibleFunction<Y, Z> g) =>
-      g.after(this);
+      g?.after(this) ?? this;
 
   // ignore: always_specify_types
   InvertibleFunction operator >>(InvertibleFunction g) => before(g);

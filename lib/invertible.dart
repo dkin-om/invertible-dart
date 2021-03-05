@@ -1,3 +1,4 @@
+export 'src/identity.dart' show Identity;
 export 'src/invertible_function.dart' show InvertibleFunction;
 export 'src/real_functions/addition.dart' show Addition;
 export 'src/real_functions/division.dart' show Division;
