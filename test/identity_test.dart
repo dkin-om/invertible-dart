@@ -2,6 +2,8 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
+  initInvertible();
+
   group('Identity<String>', () {
     test('function returns the argument', () {
       final Identity<String> f = Identity<String>();

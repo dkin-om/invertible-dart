@@ -3,8 +3,10 @@ import 'dart:math';
 import 'invertible_real_function.dart';
 import 'logarithm.dart';
 
+/// Represents exponential function, f(x) = c<sup>x</sup>
 class Exponential extends InvertibleRealFunction {
-  Exponential([this.base = e]) : super(Exp(), <dynamic>[base]) {
+  /// Constructs an exponential function
+  Exponential([this.base = e]) : super(_Exp(), <dynamic>[base]) {
     if (base <= 0) {
       throw ArgumentError.value(base, 'base', 'Must be positive');
     }
@@ -13,6 +15,7 @@ class Exponential extends InvertibleRealFunction {
     }
   }
 
+  /// Base of this function
   final num base;
 
   @override
@@ -23,12 +26,17 @@ class Exponential extends InvertibleRealFunction {
 
   @override
   InvertibleRealFunction inverse() => Logarithm(base);
+
+  /// Initialize this library
+  static void init() {
+    _Exp();
+  }
 }
 
-class Exp extends IRFSymbol<Exponential> {
-  factory Exp() => symbol;
+class _Exp extends IRFSymbol<Exponential> {
+  factory _Exp() => symbol;
 
-  Exp._internal() : super(<String>['exp']);
+  _Exp._internal() : super(<String>['exp']);
 
-  static final Exp symbol = Exp._internal();
+  static final _Exp symbol = _Exp._internal();
 }

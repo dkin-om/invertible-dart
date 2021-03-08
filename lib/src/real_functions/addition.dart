@@ -1,9 +1,12 @@
 import 'invertible_real_function.dart';
 import 'subtraction.dart';
 
+/// Represents addition function, f(x) = x + c
 class Addition extends InvertibleRealFunction {
-  Addition(this.addBy) : super(Plus(), <dynamic>[addBy]);
+  /// Constructs an addition function
+  Addition(this.addBy) : super(_Plus(), <dynamic>[addBy]);
 
+  /// Added to the argument
   final num addBy;
 
   @override
@@ -14,12 +17,17 @@ class Addition extends InvertibleRealFunction {
 
   @override
   InvertibleRealFunction inverse() => Subtraction(addBy);
+
+  /// Initialize this library
+  static void init() {
+    _Plus();
+  }
 }
 
-class Plus extends IRFSymbol<Addition> {
-  factory Plus() => symbol;
+class _Plus extends IRFSymbol<Addition> {
+  factory _Plus() => symbol;
 
-  Plus._internal() : super(<String>['+']);
+  _Plus._internal() : super(<String>['+']);
 
-  static final Plus symbol = Plus._internal();
+  static final _Plus symbol = _Plus._internal();
 }

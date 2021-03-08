@@ -2,6 +2,8 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
+  initInvertible();
+
   group('Exponential', () {
     group('function raises a given number to the power of the argument', () {
       test('base < 0', () {

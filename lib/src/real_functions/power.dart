@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'invertible_real_function.dart';
 
+/// Represents power function, f(x) = x<sup>c</sup>
 class Power extends InvertibleRealFunction {
-  Power(this.exponent) : super(Pow(), <dynamic>[exponent]) {
+  /// Constructs a power function
+  Power(this.exponent) : super(_Pow(), <dynamic>[exponent]) {
     if (exponent == 0) {
       throw ArgumentError.value(exponent, 'exponent', 'Must not be zero');
     }
@@ -14,6 +16,7 @@ class Power extends InvertibleRealFunction {
     }
   }
 
+  /// Power to which the argument is raised to
   final num exponent;
 
   @override
@@ -28,12 +31,17 @@ class Power extends InvertibleRealFunction {
 
   @override
   InvertibleRealFunction inverse() => Power(1 / exponent);
+
+  /// Initialize this library
+  static void init() {
+    _Pow();
+  }
 }
 
-class Pow extends IRFSymbol<Power> {
-  factory Pow() => symbol;
+class _Pow extends IRFSymbol<Power> {
+  factory _Pow() => symbol;
 
-  Pow._internal() : super(<String>['^', '**', 'pow']);
+  _Pow._internal() : super(<String>['^', '**', 'pow']);
 
-  static final Pow symbol = Pow._internal();
+  static final _Pow symbol = _Pow._internal();
 }

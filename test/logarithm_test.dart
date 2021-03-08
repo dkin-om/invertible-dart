@@ -2,6 +2,8 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
+  initInvertible();
+
   group('Logarithm', () {
     group('function takes logarithm of the argument to the base a given number',
         () {

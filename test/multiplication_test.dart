@@ -2,6 +2,8 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
+  initInvertible();
+
   group('Multiplication', () {
     group('function multiplies the argument with a given number', () {
       test('multiplyBy > 0', () {

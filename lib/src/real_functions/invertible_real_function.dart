@@ -3,45 +3,39 @@ import 'dart:mirrors';
 import '../identity.dart';
 import '../invertible_function.dart';
 
-import 'addition.dart';
-import 'division.dart';
-import 'exponential.dart';
-import 'logarithm.dart';
-import 'multiplication.dart';
-import 'power.dart';
-import 'subtraction.dart';
-
+/// Superclass of all invertible real functions
 abstract class InvertibleRealFunction extends InvertibleFunction<num, num> {
+  /// Constructs a real function
   InvertibleRealFunction([this._symbol, this._variables]);
 
+  /// Converts any invertible function whose domain ⊆ [num] and codomain ⊆ [num]
+  /// into an instance of `InvertibleRealFunction`
   factory InvertibleRealFunction.of(InvertibleFunction<num, num> irf) =>
       _InvertibleRealFunctionImpl(irf);
 
+  /// Parse [source] as an instance of `InvertibleRealFunction` and return
   factory InvertibleRealFunction.parse(String source) {
     source = source.trim();
+    final List<String> parts = source.split(';');
 
     InvertibleFunction<num, num> irf = Identity<num>();
 
-    IRFSymbol<dynamic> _symbol;
-    List<String> _variables;
-    for (final String token in source.split(' ')) {
-      final IRFSymbol<dynamic> symbol = IRFSymbol.of(token);
-      if (symbol != null) {
-        irf >>= _symbol?.createFunction(_variables);
+    for (String part in parts) {
+      part = part.trim();
 
-        _symbol = symbol;
-        _variables = <String>[];
-      } else {
-        if (_variables == null) {
-          if (source.isNotEmpty) {
-            throw ArgumentError.value(source, 'source', 'Invalid source');
-          }
-        } else {
-          _variables.add(token);
-        }
+      final List<String> f =
+          part.split(' ').where((String s) => s.isNotEmpty).toList();
+      if (f.isEmpty) continue;
+
+      final IRFSymbol<dynamic> symbol = IRFSymbol._of(f[0]);
+      final List<String> variables = f.sublist(1);
+
+      if (symbol == null) {
+        throw ArgumentError.value(source, 'source', 'Invalid source');
       }
+
+      irf >>= symbol?._createFunction(variables);
     }
-    irf >>= _symbol?.createFunction(_variables);
 
     return InvertibleRealFunction.of(irf);
   }
@@ -73,7 +67,15 @@ class _InvertibleRealFunctionImpl extends InvertibleRealFunction {
   String toString() => '$irf';
 }
 
+/// Represents operator(s) of [F]
+///
+/// Used during serialization and deserialization of [F]
+///
+/// See [InvertibleRealFunction.toString] and [InvertibleRealFunction.parse] for more
 abstract class IRFSymbol<F extends InvertibleRealFunction> {
+  /// Constructs a symbol for [F]
+  ///
+  /// [_tokens] is [List] of possible operators
   IRFSymbol(this._tokens) {
     final Iterable<String> invalidTokens =
         _tokens.where((String t) => t.contains(' '));
@@ -81,11 +83,13 @@ abstract class IRFSymbol<F extends InvertibleRealFunction> {
       throw ArgumentError.value(
           _tokens, '_tokens', 'Invalid tokens $invalidTokens');
     }
+
+    _all.add(this);
   }
 
   final List<String> _tokens;
 
-  F createFunction(List<String> variables) {
+  F _createFunction(List<String> variables) {
     final ClassMirror classMirror = (reflectType(F) as ClassMirror);
     final InstanceMirror instanceMirror = classMirror.newInstance(
         Symbol(''), List<num>.of(variables.map(num.parse)));
@@ -95,17 +99,9 @@ abstract class IRFSymbol<F extends InvertibleRealFunction> {
   @override
   String toString() => '$_tokens';
 
-  static final List<IRFSymbol<dynamic>> all = <IRFSymbol<dynamic>>[
-    Plus(),
-    Minus(),
-    Multiply(),
-    Divide(),
-    Pow(),
-    Exp(),
-    Log()
-  ];
+  static final List<IRFSymbol<dynamic>> _all = <IRFSymbol<dynamic>>[];
 
-  static IRFSymbol<dynamic> of(String token) => all.singleWhere(
+  static IRFSymbol<dynamic> _of(String token) => _all.singleWhere(
       (IRFSymbol<dynamic> symbol) => symbol._tokens.contains(token),
       orElse: () => null);
 }

@@ -1,13 +1,16 @@
 import 'division.dart';
 import 'invertible_real_function.dart';
 
+/// Represents multiplication function, f(x) = cx
 class Multiplication extends InvertibleRealFunction {
-  Multiplication(this.multiplyBy) : super(Multiply(), <dynamic>[multiplyBy]) {
+  /// Constructs a multiplication function
+  Multiplication(this.multiplyBy) : super(_Multiply(), <dynamic>[multiplyBy]) {
     if (multiplyBy == 0) {
       throw ArgumentError.value(multiplyBy, 'multiplyBy', 'Must not be zero');
     }
   }
 
+  /// Multiplies the argument
   final num multiplyBy;
 
   @override
@@ -18,12 +21,17 @@ class Multiplication extends InvertibleRealFunction {
 
   @override
   InvertibleRealFunction inverse() => Division(multiplyBy);
+
+  /// Initialize this library
+  static void init() {
+    _Multiply();
+  }
 }
 
-class Multiply extends IRFSymbol<Multiplication> {
-  factory Multiply() => symbol;
+class _Multiply extends IRFSymbol<Multiplication> {
+  factory _Multiply() => symbol;
 
-  Multiply._internal() : super(<String>['*', 'x']);
+  _Multiply._internal() : super(<String>['*', 'x']);
 
-  static final Multiply symbol = Multiply._internal();
+  static final _Multiply symbol = _Multiply._internal();
 }

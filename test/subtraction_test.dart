@@ -2,6 +2,8 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
+  initInvertible();
+
   group('Subtraction', () {
     group('function subtracts a given number from the argument', () {
       test('subtractBy > 0', () {
