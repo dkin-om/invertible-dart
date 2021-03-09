@@ -38,5 +38,10 @@ class _Exp extends IRFSymbol<Exponential> {
 
   _Exp._internal() : super(<String>['exp']);
 
+  @override
+  Exponential createFunction(List<String> variables) => variables.isNotEmpty
+      ? Exponential(num.parse(variables[0]))
+      : Exponential();
+
   static final _Exp symbol = _Exp._internal();
 }

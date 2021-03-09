@@ -39,5 +39,9 @@ class _Log extends IRFSymbol<Logarithm> {
 
   _Log._internal() : super(<String>['log']);
 
+  @override
+  Logarithm createFunction(List<String> variables) =>
+      variables.isNotEmpty ? Logarithm(num.parse(variables[0])) : Logarithm();
+
   static final _Log symbol = _Log._internal();
 }

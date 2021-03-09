@@ -33,5 +33,9 @@ class _Divide extends IRFSymbol<Division> {
 
   _Divide._internal() : super(<String>['/']);
 
+  @override
+  Division createFunction(List<String> variables) =>
+      Division(num.parse(variables[0]));
+
   static final _Divide symbol = _Divide._internal();
 }

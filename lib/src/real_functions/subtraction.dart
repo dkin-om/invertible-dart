@@ -29,5 +29,9 @@ class _Minus extends IRFSymbol<Subtraction> {
 
   _Minus._internal() : super(<String>['-']);
 
+  @override
+  Subtraction createFunction(List<String> variables) =>
+      Subtraction(num.parse(variables[0]));
+
   static final _Minus symbol = _Minus._internal();
 }

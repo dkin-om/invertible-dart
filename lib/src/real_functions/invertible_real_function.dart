@@ -1,5 +1,3 @@
-import 'dart:mirrors';
-
 import '../identity.dart';
 import '../invertible_function.dart';
 
@@ -34,7 +32,7 @@ abstract class InvertibleRealFunction extends InvertibleFunction<num, num> {
         throw ArgumentError.value(source, 'source', 'Invalid source');
       }
 
-      irf >>= symbol?._createFunction(variables);
+      irf >>= symbol.createFunction(variables);
     }
 
     return InvertibleRealFunction.of(irf);
@@ -89,12 +87,8 @@ abstract class IRFSymbol<F extends InvertibleRealFunction> {
 
   final List<String> _tokens;
 
-  F _createFunction(List<String> variables) {
-    final ClassMirror classMirror = (reflectType(F) as ClassMirror);
-    final InstanceMirror instanceMirror = classMirror.newInstance(
-        Symbol(''), List<num>.of(variables.map(num.parse)));
-    return instanceMirror.reflectee;
-  }
+  /// Creates an instance of [F]
+  F createFunction(List<String> variables);
 
   @override
   String toString() => '$_tokens';

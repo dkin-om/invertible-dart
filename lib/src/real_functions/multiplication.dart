@@ -33,5 +33,9 @@ class _Multiply extends IRFSymbol<Multiplication> {
 
   _Multiply._internal() : super(<String>['*', 'x']);
 
+  @override
+  Multiplication createFunction(List<String> variables) =>
+      Multiplication(num.parse(variables[0]));
+
   static final _Multiply symbol = _Multiply._internal();
 }

@@ -43,5 +43,9 @@ class _Pow extends IRFSymbol<Power> {
 
   _Pow._internal() : super(<String>['^', '**', 'pow']);
 
+  @override
+  Power createFunction(List<String> variables) =>
+      Power(num.parse(variables[0]));
+
   static final _Pow symbol = _Pow._internal();
 }

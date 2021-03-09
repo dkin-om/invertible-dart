@@ -29,5 +29,9 @@ class _Plus extends IRFSymbol<Addition> {
 
   _Plus._internal() : super(<String>['+']);
 
+  @override
+  Addition createFunction(List<String> variables) =>
+      Addition(num.parse(variables[0]));
+
   static final _Plus symbol = _Plus._internal();
 }
