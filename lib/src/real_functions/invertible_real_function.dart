@@ -43,6 +43,17 @@ abstract class InvertibleRealFunction extends InvertibleFunction<num, num> {
   final List<dynamic> _variables;
 
   @override
+  InvertibleFunction<W, num> of<W>(InvertibleFunction<W, num> g) {
+    if (g is InvertibleFunction<num, num>) {
+      final InvertibleFunction<num, num> composed =
+          super.of(g as InvertibleFunction<num, num>);
+      return InvertibleRealFunction.of(composed) as InvertibleFunction<W, num>;
+    } else {
+      return super.of(g);
+    }
+  }
+
+  @override
   String toString() => '${_symbol._tokens[0]} ${_variables.join(' ')}';
 }
 

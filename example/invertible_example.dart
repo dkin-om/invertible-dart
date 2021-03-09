@@ -8,7 +8,7 @@ void main() {
 }
 
 void temperature() {
-  final InvertibleFunction<num, num> f =
+  final InvertibleRealFunction f =
       Multiplication(9) >> Division(5) >> Addition(32);
 
   print(f); // * 9; / 5; + 32
@@ -16,7 +16,7 @@ void temperature() {
   final num fahrenheit = f(40);
   print('40 degrees Celsius is $fahrenheit degrees Fahrenheit'); // 104
 
-  final InvertibleFunction<num, num> finv = f.inverse();
+  final InvertibleRealFunction finv = f.inverse();
 
   print(finv); // - 32; * 5; / 9
 
@@ -25,14 +25,14 @@ void temperature() {
 }
 
 void pHscale() {
-  final InvertibleFunction<num, num> f =
+  final InvertibleRealFunction f =
       InvertibleRealFunction.parse('log 10; * -1;');
 
   final num pH = f(5e-6);
   print(
-      '${5e-6} moles of hydrogen ions per litre solution has a pH of $pH'); // 5.30103
+      '${5e-6} moles of hydrogen ions per litre solution has a pH $pH'); // 5.30103
 
-  final InvertibleFunction<num, num> finv = f.inverse();
+  final InvertibleRealFunction finv = f.inverse();
 
   print(finv); // / -1; exp 10;
 

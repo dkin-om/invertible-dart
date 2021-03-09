@@ -23,13 +23,16 @@ abstract class InvertibleFunction<X, Y> {
     return null;
   }
 
-  InvertibleFunction<W, Y> _of<W>(InvertibleFunction<W, X> g) =>
+  /// Returns composite function of this function and [g]
+  ///
+  /// Composite function applies [g] then this function
+  InvertibleFunction<W, Y> of<W>(InvertibleFunction<W, X> g) =>
       InvertibleCompositeFunction<W, X, Y>(this, g);
 
   /// Returns composite function of this function and [g]
   ///
   /// Composite function applies [g] then this function
-  InvertibleFunction<W, Y> after<W>(InvertibleFunction<W, X> g) => _of(g);
+  InvertibleFunction<W, Y> after<W>(InvertibleFunction<W, X> g) => of(g);
 
   /// Shorthand for [after]
   // ignore: always_specify_types
@@ -39,7 +42,7 @@ abstract class InvertibleFunction<X, Y> {
   ///
   /// Composite function applies this function then [g]
   InvertibleFunction<X, Z> before<Z>(InvertibleFunction<Y, Z> g) =>
-      g?.after(this) ?? this;
+      g?.of(this) ?? this;
 
   /// Shorthand for [before]
   // ignore: always_specify_types

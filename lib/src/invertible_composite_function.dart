@@ -22,5 +22,14 @@ class InvertibleCompositeFunction<X, Y, Z> extends InvertibleFunction<X, Z> {
       InvertibleCompositeFunction<Z, Y, X>(g.inverse(), f.inverse());
 
   @override
-  String toString() => '$g; $f'.trim();
+  String toString() {
+    String str = '; $g; $f ;';
+    while (str.startsWith(';')) {
+      str = str.substring(1).trimLeft();
+    }
+    while (str.endsWith(';')) {
+      str = str.substring(0, str.length - 1).trimRight();
+    }
+    return str;
+  }
 }

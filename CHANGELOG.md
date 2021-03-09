@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Initial stable release
+
 ## 1.0.0-beta.1
 
 - Removed `dart:mirrors` import for js support
