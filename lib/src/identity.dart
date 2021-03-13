@@ -6,13 +6,10 @@ class Identity<X> extends InvertibleFunction<X, X> {
   Identity();
 
   @override
-  X call(X x) {
-    super.call(x);
-    return x;
-  }
+  X valueAt(X x) => x;
 
   @override
-  InvertibleFunction<X, X> inverse() => Identity<X>();
+  Identity<X> inverse() => Identity<X>();
 
   @override
   String toString() => '';

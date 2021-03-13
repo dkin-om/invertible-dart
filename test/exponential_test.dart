@@ -2,16 +2,40 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Exponential', () {
     group('function raises a given number to the power of the argument', () {
-      test('base < 0', () {
-        expect(() => Exponential(-1.23), throwsArgumentError);
+      group('base < 0', () {
+        test('x > 0', () {
+          final Exponential f = Exponential(-1.23);
+          expect(() => f(3), throwsArgumentError);
+        });
+
+        test('x == 0', () {
+          final Exponential f = Exponential(-1.23);
+          expect(() => f(0), throwsArgumentError);
+        });
+
+        test('x < 0', () {
+          final Exponential f = Exponential(-1.23);
+          expect(() => f(-1.5), throwsArgumentError);
+        });
       });
 
-      test('base == 0', () {
-        expect(() => Exponential(0), throwsArgumentError);
+      group('base == 0', () {
+        test('x > 0', () {
+          final Exponential f = Exponential(0);
+          expect(() => f(3), throwsArgumentError);
+        });
+
+        test('x == 0', () {
+          final Exponential f = Exponential(0);
+          expect(() => f(0), throwsArgumentError);
+        });
+
+        test('x < 0', () {
+          final Exponential f = Exponential(0);
+          expect(() => f(-1.5), throwsArgumentError);
+        });
       });
 
       group('base > 0 && base < 1', () {
@@ -31,8 +55,21 @@ void main() {
         });
       });
 
-      test('base == 1', () {
-        expect(() => Exponential(1), throwsArgumentError);
+      group('base == 1', () {
+        test('x > 0', () {
+          final Exponential f = Exponential(1);
+          expect(() => f(3), throwsArgumentError);
+        });
+
+        test('x == 0', () {
+          final Exponential f = Exponential(1);
+          expect(() => f(0), throwsArgumentError);
+        });
+
+        test('x < 0', () {
+          final Exponential f = Exponential(1);
+          expect(() => f(-1.5), throwsArgumentError);
+        });
       });
 
       group('base > 1', () {

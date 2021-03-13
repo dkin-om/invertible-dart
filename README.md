@@ -12,8 +12,6 @@ A Dart library for defining invertible functions and their compositions
 See `example/invertible_example.dart`
 
 ```dart
-initInvertible();
-
 final InvertibleRealFunction celsiusToFahrenheit =
     InvertibleRealFunction.parse('* 9; / 5; + 32;');
 

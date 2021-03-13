@@ -1,3 +1,12 @@
+## 2.0.0-nullsafety.0
+
+- Migrated to null safety
+- Changed `InvertibleFunction` and its subclasses' constructors to `const` constructors
+- `InvertibleRealFunction` is an `Equatable` now
+- Added extensions `ToIRF` and `ComposeListOfIRF`
+- Operators `<<` and `>>` are defined only for `InvertibleRealFunction` now
+- Got rid of `initInvertible`
+
 ## 1.0.0
 
 - Initial stable release

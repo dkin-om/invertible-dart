@@ -2,8 +2,6 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Addition', () {
     group('function adds a given number to the argument', () {
       test('addBy > 0', () {

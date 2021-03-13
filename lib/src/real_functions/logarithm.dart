@@ -6,42 +6,42 @@ import 'invertible_real_function.dart';
 /// Represents logarithm function, f(x) = log<sub>c</sub>(x)
 class Logarithm extends InvertibleRealFunction {
   /// Constructs a logarithm function
-  Logarithm([this.base = e]) : super(_Log(), <dynamic>[base]) {
+  const Logarithm([this.base = e]) : super(Log._symbol);
+
+  /// Base of this function
+  final num base;
+
+  @override
+  List<bool Function(num)> get domain {
     if (base <= 0) {
       throw ArgumentError.value(base, 'base', 'Must be positive');
     }
     if (base == 1) {
       throw ArgumentError.value(base, 'base', 'Must not be one');
     }
-    domain.add((num x) => x > 0);
-  }
-
-  /// Base of this function
-  final num base;
-
-  @override
-  num call(num x) {
-    super.call(x);
-    return log(x) / log(base);
+    return <bool Function(num)>[(num x) => x > 0];
   }
 
   @override
-  InvertibleRealFunction inverse() => Exponential(base);
+  List<Object> get props => <Object>[base];
 
-  /// Initialize this library
-  static void init() {
-    _Log();
-  }
+  @override
+  num valueAt(num x) => log(x) / log(base);
+
+  @override
+  Exponential inverse() => Exponential(base);
 }
 
-class _Log extends IRFSymbol<Logarithm> {
-  factory _Log() => symbol;
+///
+class Log extends IRFSymbol<Logarithm> {
+  ///
+  factory Log() => _symbol;
 
-  _Log._internal() : super(<String>['log']);
+  const Log._internal() : super(const <String>['log']);
 
   @override
-  Logarithm createFunction(List<String> variables) =>
-      variables.isNotEmpty ? Logarithm(num.parse(variables[0])) : Logarithm();
+  Logarithm createFunction(List<String> props) =>
+      props.isNotEmpty ? Logarithm(num.parse(props[0])) : Logarithm();
 
-  static final _Log symbol = _Log._internal();
+  static const Log _symbol = Log._internal();
 }

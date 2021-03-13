@@ -2,8 +2,6 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Division', () {
     group('function divides the argument by a given number', () {
       test('divideBy > 0', () {
@@ -12,7 +10,8 @@ void main() {
       });
 
       test('divideBy == 0', () {
-        expect(() => Division(0), throwsArgumentError);
+        final Division f = Division(0);
+        expect(() => f(8), throwsArgumentError);
       });
 
       test('divideBy < 0', () {

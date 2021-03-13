@@ -4,38 +4,39 @@ import 'invertible_real_function.dart';
 /// Represents multiplication function, f(x) = cx
 class Multiplication extends InvertibleRealFunction {
   /// Constructs a multiplication function
-  Multiplication(this.multiplyBy) : super(_Multiply(), <dynamic>[multiplyBy]) {
-    if (multiplyBy == 0) {
-      throw ArgumentError.value(multiplyBy, 'multiplyBy', 'Must not be zero');
-    }
-  }
+  const Multiplication(this.multiplyBy) : super(Multiply._symbol);
 
   /// Multiplies the argument
   final num multiplyBy;
 
   @override
-  num call(num x) {
-    super.call(x);
-    return x * multiplyBy;
+  List<bool Function(num)> get domain {
+    if (multiplyBy == 0) {
+      throw ArgumentError.value(multiplyBy, 'multiplyBy', 'Must not be zero');
+    }
+    return super.domain;
   }
 
   @override
-  InvertibleRealFunction inverse() => Division(multiplyBy);
+  List<Object> get props => <Object>[multiplyBy];
 
-  /// Initialize this library
-  static void init() {
-    _Multiply();
-  }
+  @override
+  num valueAt(num x) => x * multiplyBy;
+
+  @override
+  Division inverse() => Division(multiplyBy);
 }
 
-class _Multiply extends IRFSymbol<Multiplication> {
-  factory _Multiply() => symbol;
+///
+class Multiply extends IRFSymbol<Multiplication> {
+  ///
+  factory Multiply() => _symbol;
 
-  _Multiply._internal() : super(<String>['*', 'x']);
+  const Multiply._internal() : super(const <String>['*', 'x']);
 
   @override
-  Multiplication createFunction(List<String> variables) =>
-      Multiplication(num.parse(variables[0]));
+  Multiplication createFunction(List<String> props) =>
+      Multiplication(num.parse(props[0]));
 
-  static final _Multiply symbol = _Multiply._internal();
+  static const Multiply _symbol = Multiply._internal();
 }

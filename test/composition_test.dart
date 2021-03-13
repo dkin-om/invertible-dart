@@ -4,8 +4,6 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Temperature', () {
     final InvertibleRealFunction f =
         Addition(32) << Division(5) << Multiplication(9);
@@ -50,9 +48,28 @@ void main() {
     });
   });
 
-  group('Standard normal distribution', () {
+  group('Standard normal distribution - 1', () {
     final InvertibleRealFunction f =
         InvertibleRealFunction.parse('pow 2; / -2; exp; / ${sqrt(2 * pi)}');
+
+    final InvertibleRealFunction finv = f.inverse();
+
+    test('Maximum point', () {
+      expect(f(0), closeTo(0.3989423, 5e-7));
+    });
+
+    test('Inflection point', () {
+      expect(finv(0.2419707), closeTo(1, 5e-7));
+    });
+  });
+
+  group('Standard normal distribution - 2', () {
+    final InvertibleRealFunction f = (<InvertibleRealFunction>[
+      Power(2),
+      Division(-2),
+      Exponential(),
+      Division(sqrt(2 * pi)),
+    ]).compose();
 
     final InvertibleRealFunction finv = f.inverse();
 
@@ -72,6 +89,6 @@ void main() {
 
   test('Invalid compositions', () {
     expect(() => InvertibleRealFunction.parse('pow;'), throwsArgumentError);
-    expect(() => InvertibleRealFunction.parse('ln;'), throwsArgumentError);
+    expect(() => InvertibleRealFunction.parse('ln;'), throwsStateError);
   });
 }

@@ -2,12 +2,23 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Power', () {
     group('function raises the argument to the power of a given number', () {
-      test('exponent == 0', () {
-        expect(() => Power(0), throwsArgumentError);
+      group('exponent == 0', () {
+        test('x > 0', () {
+          final Power f = Power(0);
+          expect(() => f(4), throwsArgumentError);
+        });
+
+        test('x == 0', () {
+          final Power f = Power(0);
+          expect(() => f(0), throwsArgumentError);
+        });
+
+        test('x < 0', () {
+          final Power f = Power(0);
+          expect(() => f(-3.1415), throwsArgumentError);
+        });
       });
 
       group('exponent % 2 == 1', () {

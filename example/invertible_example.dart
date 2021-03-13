@@ -1,8 +1,6 @@
 import 'package:invertible/invertible.dart';
 
 void main() {
-  initInvertible();
-
   temperature();
   pHscale();
 }
@@ -34,7 +32,7 @@ void pHscale() {
 
   final InvertibleRealFunction finv = f.inverse();
 
-  print(finv); // / -1; exp 10;
+  print(finv); // / -1; exp 10
 
   final num concentration = finv(8.69897);
   print(

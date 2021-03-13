@@ -5,47 +5,44 @@ import 'invertible_real_function.dart';
 /// Represents power function, f(x) = x<sup>c</sup>
 class Power extends InvertibleRealFunction {
   /// Constructs a power function
-  Power(this.exponent) : super(_Pow(), <dynamic>[exponent]) {
-    if (exponent == 0) {
-      throw ArgumentError.value(exponent, 'exponent', 'Must not be zero');
-    }
-    if (exponent % 2 == 1 || (1 / exponent) % 2 == 1) {
-      domain.add((num x) => exponent > 0 || x != 0);
-    } else {
-      domain.add((num x) => x >= 0 && (exponent > 0 || x != 0));
-    }
-  }
+  const Power(this.exponent) : super(Pow._symbol);
 
   /// Power to which the argument is raised to
   final num exponent;
 
   @override
-  num call(num x) {
-    super.call(x);
-    if (x < 0) {
-      return -pow(-x, exponent);
+  List<bool Function(num)> get domain {
+    if (exponent == 0) {
+      throw ArgumentError.value(exponent, 'exponent', 'Must not be zero');
+    }
+    if (exponent % 2 == 1 || (1 / exponent) % 2 == 1) {
+      return <bool Function(num)>[(num x) => exponent > 0 || x != 0];
     } else {
-      return pow(x, exponent);
+      return <bool Function(num)>[
+        (num x) => x >= 0 && (exponent > 0 || x != 0)
+      ];
     }
   }
 
   @override
-  InvertibleRealFunction inverse() => Power(1 / exponent);
-
-  /// Initialize this library
-  static void init() {
-    _Pow();
-  }
-}
-
-class _Pow extends IRFSymbol<Power> {
-  factory _Pow() => symbol;
-
-  _Pow._internal() : super(<String>['^', '**', 'pow']);
+  List<Object> get props => <Object>[exponent];
 
   @override
-  Power createFunction(List<String> variables) =>
-      Power(num.parse(variables[0]));
+  num valueAt(num x) => x < 0 ? -pow(-x, exponent) : pow(x, exponent);
 
-  static final _Pow symbol = _Pow._internal();
+  @override
+  Power inverse() => Power(1 / exponent);
+}
+
+///
+class Pow extends IRFSymbol<Power> {
+  ///
+  factory Pow() => _symbol;
+
+  const Pow._internal() : super(const <String>['^', '**', 'pow']);
+
+  @override
+  Power createFunction(List<String> props) => Power(num.parse(props[0]));
+
+  static const Pow _symbol = Pow._internal();
 }

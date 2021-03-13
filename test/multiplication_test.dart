@@ -2,8 +2,6 @@ import 'package:invertible/invertible.dart';
 import 'package:test/test.dart';
 
 void main() {
-  initInvertible();
-
   group('Multiplication', () {
     group('function multiplies the argument with a given number', () {
       test('multiplyBy > 0', () {
@@ -12,7 +10,8 @@ void main() {
       });
 
       test('multiplyBy == 0', () {
-        expect(() => Multiplication(0), throwsArgumentError);
+        final Multiplication f = Multiplication(0);
+        expect(() => f(8), throwsArgumentError);
       });
 
       test('multiplyBy < 0', () {

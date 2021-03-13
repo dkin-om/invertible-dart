@@ -12,10 +12,7 @@ class InvertibleCompositeFunction<X, Y, Z> extends InvertibleFunction<X, Z> {
   final InvertibleFunction<X, Y> g;
 
   @override
-  Z call(X x) {
-    super.call(x);
-    return f(g(x));
-  }
+  Z valueAt(X x) => f(g(x));
 
   @override
   InvertibleFunction<Z, X> inverse() =>

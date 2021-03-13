@@ -4,38 +4,38 @@ import 'multiplication.dart';
 /// Represents division function, f(x) = <sup>x</sup>&frasl;<sub>c</sub>
 class Division extends InvertibleRealFunction {
   /// Constructs a division function
-  Division(this.divideBy) : super(_Divide(), <dynamic>[divideBy]) {
-    if (divideBy == 0) {
-      throw ArgumentError.value(divideBy, 'divideBy', 'Must not be zero');
-    }
-  }
+  const Division(this.divideBy) : super(Divide._symbol);
 
   /// Divides the argument
   final num divideBy;
 
   @override
-  num call(num x) {
-    super.call(x);
-    return x / divideBy;
+  List<bool Function(num)> get domain {
+    if (divideBy == 0) {
+      throw ArgumentError.value(divideBy, 'divideBy', 'Must not be zero');
+    }
+    return super.domain;
   }
 
   @override
-  InvertibleRealFunction inverse() => Multiplication(divideBy);
+  List<Object> get props => <Object>[divideBy];
 
-  /// Initialize this library
-  static void init() {
-    _Divide();
-  }
+  @override
+  num valueAt(num x) => x / divideBy;
+
+  @override
+  Multiplication inverse() => Multiplication(divideBy);
 }
 
-class _Divide extends IRFSymbol<Division> {
-  factory _Divide() => symbol;
+///
+class Divide extends IRFSymbol<Division> {
+  ///
+  factory Divide() => _symbol;
 
-  _Divide._internal() : super(<String>['/']);
+  const Divide._internal() : super(const <String>['/']);
 
   @override
-  Division createFunction(List<String> variables) =>
-      Division(num.parse(variables[0]));
+  Division createFunction(List<String> props) => Division(num.parse(props[0]));
 
-  static final _Divide symbol = _Divide._internal();
+  static const Divide _symbol = Divide._internal();
 }

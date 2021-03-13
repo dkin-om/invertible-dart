@@ -6,42 +6,42 @@ import 'logarithm.dart';
 /// Represents exponential function, f(x) = c<sup>x</sup>
 class Exponential extends InvertibleRealFunction {
   /// Constructs an exponential function
-  Exponential([this.base = e]) : super(_Exp(), <dynamic>[base]) {
+  const Exponential([this.base = e]) : super(Exp._symbol);
+
+  /// Base of this function
+  final num base;
+
+  @override
+  List<bool Function(num)> get domain {
     if (base <= 0) {
       throw ArgumentError.value(base, 'base', 'Must be positive');
     }
     if (base == 1) {
       throw ArgumentError.value(base, 'base', 'Must not be one');
     }
-  }
-
-  /// Base of this function
-  final num base;
-
-  @override
-  num call(num x) {
-    super.call(x);
-    return pow(base, x);
+    return super.domain;
   }
 
   @override
-  InvertibleRealFunction inverse() => Logarithm(base);
+  List<Object> get props => <Object>[base];
 
-  /// Initialize this library
-  static void init() {
-    _Exp();
-  }
+  @override
+  num valueAt(num x) => pow(base, x);
+
+  @override
+  Logarithm inverse() => Logarithm(base);
 }
 
-class _Exp extends IRFSymbol<Exponential> {
-  factory _Exp() => symbol;
+///
+class Exp extends IRFSymbol<Exponential> {
+  ///
+  factory Exp() => _symbol;
 
-  _Exp._internal() : super(<String>['exp']);
+  const Exp._internal() : super(const <String>['exp']);
 
   @override
-  Exponential createFunction(List<String> variables) => variables.isNotEmpty
-      ? Exponential(num.parse(variables[0]))
-      : Exponential();
+  Exponential createFunction(List<String> props) =>
+      props.isNotEmpty ? Exponential(num.parse(props[0])) : Exponential();
 
-  static final _Exp symbol = _Exp._internal();
+  static const Exp _symbol = Exp._internal();
 }

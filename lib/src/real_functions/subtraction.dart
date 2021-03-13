@@ -4,34 +4,31 @@ import 'invertible_real_function.dart';
 /// Represents subtraction function, f(x) = x - c
 class Subtraction extends InvertibleRealFunction {
   /// Constructs a subtraction function
-  Subtraction(this.subtractBy) : super(_Minus(), <dynamic>[subtractBy]);
+  const Subtraction(this.subtractBy) : super(Minus._symbol);
 
   /// Subtracted from the argument
   final num subtractBy;
 
   @override
-  num call(num x) {
-    super.call(x);
-    return x - subtractBy;
-  }
+  List<Object> get props => <Object>[subtractBy];
 
   @override
-  InvertibleRealFunction inverse() => Addition(subtractBy);
+  num valueAt(num x) => x - subtractBy;
 
-  /// Initialize this library
-  static void init() {
-    _Minus();
-  }
+  @override
+  Addition inverse() => Addition(subtractBy);
 }
 
-class _Minus extends IRFSymbol<Subtraction> {
-  factory _Minus() => symbol;
+///
+class Minus extends IRFSymbol<Subtraction> {
+  ///
+  factory Minus() => _symbol;
 
-  _Minus._internal() : super(<String>['-']);
+  const Minus._internal() : super(const <String>['-']);
 
   @override
-  Subtraction createFunction(List<String> variables) =>
-      Subtraction(num.parse(variables[0]));
+  Subtraction createFunction(List<String> props) =>
+      Subtraction(num.parse(props[0]));
 
-  static final _Minus symbol = _Minus._internal();
+  static const Minus _symbol = Minus._internal();
 }
