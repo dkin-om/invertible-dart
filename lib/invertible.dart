@@ -1,3 +1,5 @@
+export 'src/domain_error.dart'
+    show DomainError, DomainNotDefinedError, NotInDomainError;
 export 'src/identity.dart' show Identity;
 export 'src/invertible_function.dart' show InvertibleFunction;
 export 'src/real_functions/addition.dart' show Addition;

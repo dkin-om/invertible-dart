@@ -1,3 +1,8 @@
+## 2.0.0-nullsafety.1
+
+- Added `DomainError`s
+- Added `inverse` method to `ComposeListOfIRF` extension
+
 ## 2.0.0-nullsafety.0
 
 - Migrated to null safety

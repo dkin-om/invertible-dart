@@ -11,7 +11,7 @@ void main() {
 
       test('divideBy == 0', () {
         final Division f = Division(0);
-        expect(() => f(8), throwsArgumentError);
+        expect(() => f(8), throwsA(TypeMatcher<DomainNotDefinedError>()));
       });
 
       test('divideBy < 0', () {

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../domain_error.dart';
+
 import 'exponential.dart';
 import 'invertible_real_function.dart';
 
@@ -14,10 +16,10 @@ class Logarithm extends InvertibleRealFunction {
   @override
   List<bool Function(num)> get domain {
     if (base <= 0) {
-      throw ArgumentError.value(base, 'base', 'Must be positive');
+      throw DomainNotDefinedError.value(base, 'base', 'Must be positive');
     }
     if (base == 1) {
-      throw ArgumentError.value(base, 'base', 'Must not be one');
+      throw DomainNotDefinedError.value(base, 'base', 'Must not be one');
     }
     return <bool Function(num)>[(num x) => x > 0];
   }

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../domain_error.dart';
+
 import 'invertible_real_function.dart';
 
 /// Represents power function, f(x) = x<sup>c</sup>
@@ -13,7 +15,8 @@ class Power extends InvertibleRealFunction {
   @override
   List<bool Function(num)> get domain {
     if (exponent == 0) {
-      throw ArgumentError.value(exponent, 'exponent', 'Must not be zero');
+      throw DomainNotDefinedError.value(
+          exponent, 'exponent', 'Must not be zero');
     }
     if (exponent % 2 == 1 || (1 / exponent) % 2 == 1) {
       return <bool Function(num)>[(num x) => exponent > 0 || x != 0];

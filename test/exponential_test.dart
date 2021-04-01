@@ -7,34 +7,34 @@ void main() {
       group('base < 0', () {
         test('x > 0', () {
           final Exponential f = Exponential(-1.23);
-          expect(() => f(3), throwsArgumentError);
+          expect(() => f(3), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Exponential f = Exponential(-1.23);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Exponential f = Exponential(-1.23);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
       group('base == 0', () {
         test('x > 0', () {
           final Exponential f = Exponential(0);
-          expect(() => f(3), throwsArgumentError);
+          expect(() => f(3), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Exponential f = Exponential(0);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Exponential f = Exponential(0);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
@@ -58,17 +58,17 @@ void main() {
       group('base == 1', () {
         test('x > 0', () {
           final Exponential f = Exponential(1);
-          expect(() => f(3), throwsArgumentError);
+          expect(() => f(3), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Exponential f = Exponential(1);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Exponential f = Exponential(1);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 

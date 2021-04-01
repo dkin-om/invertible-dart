@@ -7,17 +7,18 @@ void main() {
       group('exponent == 0', () {
         test('x > 0', () {
           final Power f = Power(0);
-          expect(() => f(4), throwsArgumentError);
+          expect(() => f(4), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Power f = Power(0);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Power f = Power(0);
-          expect(() => f(-3.1415), throwsArgumentError);
+          expect(
+              () => f(-3.1415), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
@@ -47,7 +48,7 @@ void main() {
 
           test('x == 0', () {
             final Power f = Power(-5);
-            expect(() => f(0), throwsArgumentError);
+            expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
           });
 
           test('x < 0', () {
@@ -83,7 +84,7 @@ void main() {
 
           test('x == 0', () {
             final Power f = Power(-1 / 9);
-            expect(() => f(0), throwsArgumentError);
+            expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
           });
 
           test('x < 0', () {
@@ -107,7 +108,7 @@ void main() {
 
           test('x < 0', () {
             final Power f = Power(4);
-            expect(() => f(-3.1415), throwsArgumentError);
+            expect(() => f(-3.1415), throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
 
@@ -119,12 +120,13 @@ void main() {
 
           test('x == 0', () {
             final Power f = Power(-6);
-            expect(() => f(0), throwsArgumentError);
+            expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
           });
 
           test('x < 0', () {
             final Power f = Power(-6);
-            expect(() => f(-0.271828), throwsArgumentError);
+            expect(
+                () => f(-0.271828), throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
       });
@@ -143,7 +145,8 @@ void main() {
 
           test('x < 0', () {
             final Power f = Power(1 / 8);
-            expect(() => f(-3019.6697), throwsArgumentError);
+            expect(
+                () => f(-3019.6697), throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
 
@@ -155,12 +158,13 @@ void main() {
 
           test('x == 0', () {
             final Power f = Power(-1 / 10);
-            expect(() => f(0), throwsArgumentError);
+            expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
           });
 
           test('x < 0', () {
             final Power f = Power(-1 / 10);
-            expect(() => f(-0.000008103034873), throwsArgumentError);
+            expect(() => f(-0.000008103034873),
+                throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
       });
@@ -179,7 +183,7 @@ void main() {
 
           test('x < 0', () {
             final Power f = Power(3.5);
-            expect(() => f(-3.1415), throwsArgumentError);
+            expect(() => f(-3.1415), throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
 
@@ -191,12 +195,13 @@ void main() {
 
           test('x == 0', () {
             final Power f = Power(-5.5);
-            expect(() => f(0), throwsArgumentError);
+            expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
           });
 
           test('x < 0', () {
             final Power f = Power(-5.5);
-            expect(() => f(-0.271828), throwsArgumentError);
+            expect(
+                () => f(-0.271828), throwsA(TypeMatcher<NotInDomainError>()));
           });
         });
       });

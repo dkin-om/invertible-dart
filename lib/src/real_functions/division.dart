@@ -1,3 +1,5 @@
+import '../domain_error.dart';
+
 import 'invertible_real_function.dart';
 import 'multiplication.dart';
 
@@ -12,7 +14,8 @@ class Division extends InvertibleRealFunction {
   @override
   List<bool Function(num)> get domain {
     if (divideBy == 0) {
-      throw ArgumentError.value(divideBy, 'divideBy', 'Must not be zero');
+      throw DomainNotDefinedError.value(
+          divideBy, 'divideBy', 'Must not be zero');
     }
     return super.domain;
   }

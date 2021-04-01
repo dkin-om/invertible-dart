@@ -8,34 +8,36 @@ void main() {
       group('base < 0', () {
         test('x > 0', () {
           final Logarithm f = Logarithm(-1.23);
-          expect(() => f(0.00390625), throwsArgumentError);
+          expect(() => f(0.00390625),
+              throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Logarithm f = Logarithm(-1.23);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Logarithm f = Logarithm(-1.23);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
       group('base == 0', () {
         test('x > 0', () {
           final Logarithm f = Logarithm(0);
-          expect(() => f(0.00390625), throwsArgumentError);
+          expect(() => f(0.00390625),
+              throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Logarithm f = Logarithm(0);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Logarithm f = Logarithm(0);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
@@ -47,29 +49,30 @@ void main() {
 
         test('x == 0', () {
           final Logarithm f = Logarithm(0.5);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
         });
 
         test('x < 0', () {
           final Logarithm f = Logarithm(0.5);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<NotInDomainError>()));
         });
       });
 
       group('base == 1', () {
         test('x > 0', () {
           final Logarithm f = Logarithm(1);
-          expect(() => f(0.00390625), throwsArgumentError);
+          expect(() => f(0.00390625),
+              throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x == 0', () {
           final Logarithm f = Logarithm(1);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
 
         test('x < 0', () {
           final Logarithm f = Logarithm(1);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<DomainNotDefinedError>()));
         });
       });
 
@@ -81,12 +84,12 @@ void main() {
 
         test('x == 0', () {
           final Logarithm f = Logarithm(5);
-          expect(() => f(0), throwsArgumentError);
+          expect(() => f(0), throwsA(TypeMatcher<NotInDomainError>()));
         });
 
         test('x < 0', () {
           final Logarithm f = Logarithm(5);
-          expect(() => f(-1.5), throwsArgumentError);
+          expect(() => f(-1.5), throwsA(TypeMatcher<NotInDomainError>()));
         });
       });
     });

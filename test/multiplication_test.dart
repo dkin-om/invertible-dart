@@ -11,7 +11,7 @@ void main() {
 
       test('multiplyBy == 0', () {
         final Multiplication f = Multiplication(0);
-        expect(() => f(8), throwsArgumentError);
+        expect(() => f(8), throwsA(TypeMatcher<DomainNotDefinedError>()));
       });
 
       test('multiplyBy < 0', () {

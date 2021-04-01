@@ -1,3 +1,4 @@
+import 'domain_error.dart';
 import 'invertible_composite_function.dart';
 
 /// Superclass of all invertible functions
@@ -14,7 +15,7 @@ abstract class InvertibleFunction<X, Y> {
   /// Makes this class callable
   Y call(X x) {
     if (!isInDomain(x)) {
-      throw ArgumentError.value(x, 'x', 'Must be in domain');
+      throw NotInDomainError.value(x, 'x');
     }
     return valueAt(x);
   }

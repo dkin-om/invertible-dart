@@ -98,6 +98,10 @@ extension ComposeListOfIRF on List<InvertibleFunction<num, num>> {
     }
     return irf;
   }
+
+  /// Returns the inverse composite [InvertibleRealFunction] of
+  /// this [List] of [InvertibleFunction<num, num>]
+  InvertibleRealFunction inverse() => compose().inverse();
 }
 
 /// Represents operator(s) of [F]
