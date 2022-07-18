@@ -1,7 +1,7 @@
 # invertible - Define invertible functions and their compositions
 
 [![Version](https://img.shields.io/pub/v/invertible)](https://pub.dev/packages/invertible)
-[![Build Status](https://travis-ci.com/dkin-om/invertible-dart.svg?branch=master)](https://travis-ci.com/dkin-om/invertible-dart)
+[![Build Status](https://travis-ci.com/dkin-om/invertible-dart.svg?branch=master)](https://app.travis-ci.com/github/dkin-om/invertible-dart)
 [![Coverage Status](https://coveralls.io/repos/github/dkin-om/invertible-dart/badge.svg)](https://coveralls.io/github/dkin-om/invertible-dart)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/dkin-om/invertible-dart/blob/master/LICENSE)
 
